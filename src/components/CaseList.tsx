@@ -1,16 +1,16 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
-import TutorialDataService from "../services/TutorialService";
+import CaseDataService from "../services/CaseService";
 import { Link } from "react-router-dom";
-import ITutorialData from '../types/Tutorial';
+import ICaseData from '../types/Case';
 
-const TutorialsList: React.FC = () => {
-  const [tutorials, setTutorials] = useState<Array<ITutorialData>>([]);
-  const [currentTutorial, setCurrentTutorial] = useState<ITutorialData | null>(null);
+const CasesList: React.FC = () => {
+  const [caseData, setCases] = useState<Array<ICaseData>>([]);
+  const [currentCase, setCurrentCase] = useState<ICaseData | null>(null);
   const [currentIndex, setCurrentIndex] = useState<number>(-1);
   const [searchTitle, setSearchTitle] = useState<string>("");
 
   useEffect(() => {
-    retrieveTutorials();
+    retrieveCases();
   }, []);
 
   const onChangeSearchTitle = (e: ChangeEvent<HTMLInputElement>) => {
@@ -18,10 +18,10 @@ const TutorialsList: React.FC = () => {
     setSearchTitle(searchTitle);
   };
 
-  const retrieveTutorials = () => {
-    TutorialDataService.getAll()
+  const retrieveCases = () => {
+    CaseDataService.getAll()
       .then((response: any) => {
-        setTutorials(response.data);
+        setCases(response.data);
         console.log(response.data);
       })
       .catch((e: Error) => {
@@ -30,18 +30,18 @@ const TutorialsList: React.FC = () => {
   };
 
   const refreshList = () => {
-    retrieveTutorials();
-    setCurrentTutorial(null);
+    retrieveCases();
+    setCurrentCase(null);
     setCurrentIndex(-1);
   };
 
-  const setActiveTutorial = (tutorial: ITutorialData, index: number) => {
-    setCurrentTutorial(tutorial);
+  const setActiveCase = (caseData: ICaseData, index: number) => {
+    setCurrentCase(caseData);
     setCurrentIndex(index);
   };
 
-  const removeAllTutorials = () => {
-    TutorialDataService.removeAll()
+  const removeAllCases = () => {
+    CaseDataService.removeAll()
       .then((response: any) => {
         console.log(response.data);
         refreshList();
@@ -52,10 +52,10 @@ const TutorialsList: React.FC = () => {
   };
 
   const findByTitle = () => {
-    TutorialDataService.findByTitle(searchTitle)
+    CaseDataService.findByTitle(searchTitle)
       .then((response: any) => {
-        setTutorials(response.data);
-        setCurrentTutorial(null);
+        setCases(response.data);
+        setCurrentCase(null);
         setCurrentIndex(-1);
         console.log(response.data);
       })
@@ -87,55 +87,55 @@ const TutorialsList: React.FC = () => {
         </div>
       </div>
       <div className="col-md-6">
-        <h4>Tutorials List</h4>
+        <h4>Cases List</h4>
 
         <ul className="list-group">
-          {tutorials &&
-            tutorials.map((tutorial, index) => (
+          {caseData &&
+            caseData.map((caseDataItem, index) => (
               <li
                 className={
                   "list-group-item " + (index === currentIndex ? "active" : "")
                 }
-                onClick={() => setActiveTutorial(tutorial, index)}
+                onClick={() => setActiveCase(caseDataItem, index)}
                 key={index}
               >
-                {tutorial.title}
+                {caseDataItem.title}
               </li>
             ))}
         </ul>
 
         <button
           className="m-3 btn btn-sm btn-danger"
-          onClick={removeAllTutorials}
+          onClick={removeAllCases}
         >
           Remove All
         </button>
       </div>
       <div className="col-md-6">
-        {currentTutorial ? (
+        {currentCase ? (
           <div>
-            <h4>Tutorial</h4>
+            <h4>Case</h4>
             <div>
               <label>
                 <strong>Title:</strong>
               </label>{" "}
-              {currentTutorial.title}
+              {currentCase.title}
             </div>
             <div>
               <label>
                 <strong>Description:</strong>
               </label>{" "}
-              {currentTutorial.description}
+              {currentCase.description}
             </div>
             <div>
               <label>
                 <strong>Status:</strong>
               </label>{" "}
-              {currentTutorial.published ? "Published" : "Pending"}
+              {currentCase.published ? "Published" : "Pending"}
             </div>
 
             <Link
-              to={"/tutorials/" + currentTutorial.id}
+              to={"/cases/" + currentCase.id}
               className="badge badge-warning"
             >
               Edit
@@ -144,7 +144,7 @@ const TutorialsList: React.FC = () => {
         ) : (
           <div>
             <br />
-            <p>Please click on a Tutorial...</p>
+            <p>Please click on a Case...</p>
           </div>
         )}
       </div>
@@ -152,4 +152,4 @@ const TutorialsList: React.FC = () => {
   );
 };
 
-export default TutorialsList;
+export default CasesList;
