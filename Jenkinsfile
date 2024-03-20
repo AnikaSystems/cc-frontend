@@ -19,10 +19,10 @@ pipeline {
                 }
             }
         }
-        stage('Test'){
-            steps {
-                // Run frontend tests
-            }
-        }
+        // stage('Test'){
+        //     steps {
+        //         // Run frontend tests
+        //     }
+        // }
     }
 }
