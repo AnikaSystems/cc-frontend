@@ -1,31 +1,31 @@
 import React, { useState, ChangeEvent } from "react";
-import TutorialDataService from "../services/TutorialService";
-import ITutorialData from '../types/Tutorial';
+import CaseDataService from "../services/CaseService";
+import ICaseData from '../types/Case';
 
-const AddTutorial: React.FC = () => {
-  const initialTutorialState = {
+const AddCase: React.FC = () => {
+  const initialCaseState = {
     id: null,
     title: "",
     description: "",
     published: false
   };
-  const [tutorial, setTutorial] = useState<ITutorialData>(initialTutorialState);
+  const [caseData, setCase] = useState<ICaseData>(initialCaseState);
   const [submitted, setSubmitted] = useState<boolean>(false);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setTutorial({ ...tutorial, [name]: value });
+    setCase({ ...caseData, [name]: value });
   };
 
-  const saveTutorial = () => {
+  const saveCase = () => {
     var data = {
-      title: tutorial.title,
-      description: tutorial.description
+      title: caseData.title,
+      description: caseData.description
     };
 
-    TutorialDataService.create(data)
+    CaseDataService.create(data)
       .then((response: any) => {
-        setTutorial({
+        setCase({
           id: response.data.id,
           title: response.data.title,
           description: response.data.description,
@@ -39,8 +39,8 @@ const AddTutorial: React.FC = () => {
       });
   };
 
-  const newTutorial = () => {
-    setTutorial(initialTutorialState);
+  const newCase = () => {
+    setCase(initialCaseState);
     setSubmitted(false);
   };
 
@@ -49,7 +49,7 @@ const AddTutorial: React.FC = () => {
       {submitted ? (
         <div>
           <h4>You submitted successfully!</h4>
-          <button className="btn btn-success" onClick={newTutorial}>
+          <button className="btn btn-success" onClick={newCase}>
             Add
           </button>
         </div>
@@ -62,7 +62,7 @@ const AddTutorial: React.FC = () => {
               className="form-control"
               id="title"
               required
-              value={tutorial.title}
+              value={caseData.title}
               onChange={handleInputChange}
               name="title"
             />
@@ -75,13 +75,13 @@ const AddTutorial: React.FC = () => {
               className="form-control"
               id="description"
               required
-              value={tutorial.description}
+              value={caseData.description}
               onChange={handleInputChange}
               name="description"
             />
           </div>
 
-          <button onClick={saveTutorial} className="btn btn-success">
+          <button onClick={saveCase} className="btn btn-success">
             Submit
           </button>
         </div>
@@ -90,4 +90,4 @@ const AddTutorial: React.FC = () => {
   );
 };
 
-export default AddTutorial;
+export default AddCase;
