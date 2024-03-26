@@ -14,9 +14,7 @@ pipeline {
         
         stage('Build') { 
             steps { 
-                script{
-                 sh 'NODE_OPTIONS=--openssl-legacy-provider npm start'
-                }
+                sh 'npm install'
             }
         }
         // stage('Test'){
