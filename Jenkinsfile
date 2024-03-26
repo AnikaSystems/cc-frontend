@@ -1,8 +1,6 @@
 pipeline {
     agent any
-    options {
-        skipStagesAfterUnstable()
-    }
+    tools {nodejs "nodejs"}
     stages {
          stage('Clone repository') { 
             steps { 
