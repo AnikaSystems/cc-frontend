@@ -29,6 +29,7 @@ pipeline {
             steps {
                 withAWS(region: 'us-east-1', credentials: 'aws-credentials') {
                     s3Upload(bucket: 'cc-case-management', path: '/*')
+                    s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'index.html', bucket:'cc-case-management')
                 }
             }
         }
