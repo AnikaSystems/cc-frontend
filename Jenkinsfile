@@ -28,6 +28,7 @@ pipeline {
         stage('archiving artifacts into AWS s3') {
             steps {
                 withAWS(region:'us-east-1',credentials:'aws-credentials') {
+                    s3Delete(bucket:'cc-case-management', path:'/')
                     s3Upload(bucket:"cc-case-management", workingDir:'build/', includePathPattern:'**/*');
                 }
             }
