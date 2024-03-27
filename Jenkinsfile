@@ -10,9 +10,14 @@ pipeline {
             }
         }
         
-        stage('Build') { 
+        stage('Download dependencies') { 
             steps { 
                 sh 'npm install'
+            }
+        }
+        stage('Build') { 
+            steps { 
+                sh 'npm run build'
             }
         }
         // stage('Test'){
@@ -20,5 +25,12 @@ pipeline {
         //         // Run frontend tests
         //     }
         // }
+        stage('archiving artifacts into AWS s3') {
+            steps {
+                withAWS(region: 'us-east-1', credentials: 'aws-credentials') {
+                    s3Upload(bucket: 'cc-case-management', path: '/*')
+                }
+            }
+        }
     }
 }
