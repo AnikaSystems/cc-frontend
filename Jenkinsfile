@@ -15,17 +15,28 @@ pipeline {
                 sh 'npm install'
             }
         }
+
+        stage('Define Environment Variable') {
+            steps {
+                script {
+                    // Define an environment variable within the step
+                    env.REACT_APP_BASE_URL = 'https://cc-backend.15chdg4h24tne.us-east-1.cs.amazonlightsail.com/api'
+                }
+            }
+        }
+
+        stage('Test'){
+             steps {
+                 sh 'echo "My variable value is $REACT_APP_BASE_URL"'
+             }
+        }
+
         stage('Build') { 
             steps {
-                sh 'export REACT_APP_BASE_URL=https://cc-backend.15chdg4h24tne.us-east-1.cs.amazonlightsail.com/api'
                 sh 'npm run build'
             }
         }
-        // stage('Test'){
-        //     steps {
-        //         // Run frontend tests
-        //     }
-        // }
+        
         stage('archiving artifacts into AWS s3') {
             steps {
                 withAWS(region:'us-east-1',credentials:'aws-mo') {
