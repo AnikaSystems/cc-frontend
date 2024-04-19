@@ -25,16 +25,16 @@ pipeline {
             }
         }
 
-        stage('Test'){
-             steps {
-                 sh 'echo "My variable value is $REACT_APP_BASE_URL"'
-             }
-        }
-
         stage('Build') { 
             steps {
                 sh 'npm run build'
             }
+        }
+
+        stage('Test'){
+             steps {
+                 // sh 'echo "My variable value is $REACT_APP_BASE_URL"'
+             }
         }
         
         stage('archiving artifacts into AWS s3') {
