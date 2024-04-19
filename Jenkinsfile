@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Build') { 
             steps {
-                sh 'export REACT_APP_BASE_URL=https://cc-backend.15chdg4h24tne.us-east-1.cs.amazonlightsail.com/api',
+                sh 'export REACT_APP_BASE_URL=https://cc-backend.15chdg4h24tne.us-east-1.cs.amazonlightsail.com/api'
                 sh 'npm run build'
             }
         }
