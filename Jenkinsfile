@@ -30,13 +30,13 @@ pipeline {
                 sh 'npm run build'
             }
         }
-
+/* 
         stage('Test'){
              steps {
-                 // sh 'echo "My variable value is $REACT_APP_BASE_URL"'
+                sh 'echo "My variable value is $REACT_APP_BASE_URL"'
              }
         }
-        
+*/
         stage('archiving artifacts into AWS s3') {
             steps {
                 withAWS(region:'us-east-1',credentials:'aws-mo') {
