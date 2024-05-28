@@ -1,12 +1,8 @@
 pipeline {
     agent any
     tools {nodejs "nodejs"}
-    parameters {
-        string(name: 'BRANCH_NAME', defaultValue: '')
-    }
     environment {
-        // Compute VERSION if not provided
-        BRANCH_NAME = env.BRANCH_NAME ?: scm.branches[0].name
+        BRANCH_NAME = scm.branches[0].name
     }
     stages {
          stage('Clone repository') { 
