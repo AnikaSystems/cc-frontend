@@ -5,8 +5,6 @@ pipeline {
          stage('Clone repository') { 
             steps { 
                 script{
-                def BRANCH_NAME = scm.branches[0].name
-                echo "Building on branch: ${BRANCH_NAME}"
                 checkout scm
                 }
             }
@@ -26,6 +24,8 @@ pipeline {
 
         stage('archiving artifacts into AWS s3') {
             steps {
+                def BRANCH_NAME = scm.branches[0].name
+                echo "Building on branch: ${BRANCH_NAME}"
                 withAWS(region:'us-east-1',credentials:env.PIPELINE_CREDENTIAL_NAME) {
                     s3Delete(bucket:env.FRONTEND_BUCKET_NAME, path:'${BRANCH_NAME}/')
                     s3Upload(bucket:env.FRONTEND_BUCKET_NAME, workingDir:'build/', path:'${BRANCH_NAME}/', includePathPattern:'**/*');
