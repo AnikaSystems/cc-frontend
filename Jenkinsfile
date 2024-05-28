@@ -5,7 +5,7 @@ pipeline {
          stage('Clone repository') { 
             steps { 
                 script{
-                echo "Building on branch: \${BRANCH_NAME}"
+                echo "Building on branch: \${env.BRANCH_NAME}"
                 checkout scm
                 }
             }
