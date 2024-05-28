@@ -25,8 +25,8 @@ pipeline {
         stage('archiving artifacts into AWS s3') {
             steps {
                 withAWS(region:'us-east-1',credentials:env.PIPELINE_CREDENTIAL_NAME) {
-                    s3Delete(bucket:env.FRONTEND_BUCKET_NAME, path:'${env.BRANCH_NAME}/')
-                    s3Upload(bucket:env.FRONTEND_BUCKET_NAME, workingDir:'build/', path:'${env.BRANCH_NAME}/', includePathPattern:'**/*');
+                    s3Delete(bucket:env.FRONTEND_BUCKET_NAME, path:'${BRANCH_NAME}/')
+                    s3Upload(bucket:env.FRONTEND_BUCKET_NAME, workingDir:'build/', path:'${BRANCH_NAME}/', includePathPattern:'**/*');
                 }
             }
         }
