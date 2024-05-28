@@ -5,8 +5,7 @@ pipeline {
          stage('Clone repository') { 
             steps { 
                 script{
-                def BRANCH_NAME = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
-                echo "Building on branch: \${BRANCH_NAME}"
+                echo "Building on branch: \${env.GIT_BRANCH}"
                 checkout scm
                 }
             }
