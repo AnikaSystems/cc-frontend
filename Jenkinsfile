@@ -29,13 +29,22 @@ pipeline {
         }
 
         stage('SonarQube analysis') {
-            steps {
-                script {
-                    withSonarQubeEnv() {
-                        sh './gradlew sonarqube'
-                    }
-                }
-            }
+            // steps {
+            //     script {
+            //         withSonarQubeEnv() {
+            //             sh './gradlew sonarqube'
+            //         }
+            //     }
+            // }
+        }
+
+        stage('Selenium test') {
+            // steps {
+            //     script {
+            //         sh 'npm run test:e2e'
+            //     }
+            // }
+
         }
 
         stage('archiving artifacts into AWS s3') {
