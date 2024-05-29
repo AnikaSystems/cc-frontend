@@ -2,7 +2,7 @@ pipeline {
     agent any
     tools {nodejs "nodejs"}
     stages {
-         stage('Clone repository') { 
+        stage('Clone repository') { 
             steps { 
                 script{
                 checkout scm
@@ -19,6 +19,22 @@ pipeline {
         stage('Build') { 
             steps {
                 sh 'npm run build'
+            }
+        }
+
+        stage('Test (jest)'){
+            steps {
+                sh './npm test -- --watchAll=false'
+            }
+        }
+
+        stage('SonarQube analysis') {
+            steps {
+                script {
+                    withSonarQubeEnv() {
+                        sh './gradlew sonarqube'
+                    }
+                }
             }
         }
 
