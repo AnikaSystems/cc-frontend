@@ -24,7 +24,7 @@ pipeline {
 
         stage('Test (jest)'){
             steps {
-                sh './npm test -- --watchAll=false'
+                sh 'npm test -- --watchAll=false'
             }
         }
 
