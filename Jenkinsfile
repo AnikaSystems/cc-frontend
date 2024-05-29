@@ -29,21 +29,22 @@ pipeline {
         }
 
         stage('SonarQube analysis') {
-            // steps {
-            //     script {
-            //         withSonarQubeEnv() {
-            //             sh './gradlew sonarqube'
-            //         }
-            //     }
-            // }
+            steps {
+                script {
+                    withSonarQubeEnv() {
+                        // sh './gradlew sonarqube'
+                        echo "Run SonarQube Scanner"
+                    }
+                }
+            }
         }
 
         stage('Selenium test') {
-            // steps {
-            //     script {
-            //         sh 'npm run test:e2e'
-            //     }
-            // }
+            steps {
+                script {
+                    sh 'npm run test:e2e'
+                }
+            }
 
         }
 
