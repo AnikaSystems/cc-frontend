@@ -32,7 +32,7 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv() {
-                        sh 'npm run sonarqube'
+                        sh 'npx sonarqube-scanner'
                     }
                 }
             }
