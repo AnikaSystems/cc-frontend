@@ -23,7 +23,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "sonarqube": "sonarqube-scanner"
   },
   "eslintConfig": {
     "extends": [
@@ -44,6 +45,7 @@
     ]
   },
   "devDependencies": {
-    "jest": "^26.6.0"
+    "jest": "^26.6.0",
+    "sonarqube-scanner": "^4.0.1"
   }
 }
