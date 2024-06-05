@@ -28,12 +28,11 @@ pipeline {
             }
         }
 
-        stage('SonarQube analysis') {
+       stage('SonarQube analysis') {
             steps {
                 script {
                     withSonarQubeEnv() {
-                        // sh './gradlew sonarqube'
-                        echo "Run SonarQube Scanner"
+                        sh 'sonar-scanner'
                     }
                 }
             }
