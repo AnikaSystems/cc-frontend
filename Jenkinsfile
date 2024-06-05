@@ -2,7 +2,7 @@ pipeline {
     agent any
     tools {nodejs "nodejs"}
     stages {
-         stage('Clone repository') { 
+        stage('Clone repository') { 
             steps { 
                 script{
                 checkout scm
@@ -20,6 +20,32 @@ pipeline {
             steps {
                 sh 'npm run build'
             }
+        }
+
+        stage('Test (jest)'){
+            steps {
+                sh 'npm test -- --watchAll=false'
+            }
+        }
+
+       stage('SonarQube analysis') {
+            steps {
+                script {
+                    withSonarQubeEnv() {
+                        sh 'npx sonarqube-scanner'
+                    }
+                }
+            }
+        }
+
+        stage('Selenium test') {
+            steps {
+                script {
+                    // sh 'npm run test:e2e'
+                    echo "Run Selenium test"
+                }
+            }
+
         }
 
         stage('archiving artifacts into AWS s3') {
