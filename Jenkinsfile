@@ -58,8 +58,8 @@ pipeline {
                     echo "Pushing files to: ${s3path}"
 
                     withAWS(region:env.DEPLOY_REGION,credentials:env.PIPELINE_CREDENTIAL_NAME) {
-                        s3Delete(bucket:env.FRONTEND_BUCKET_NAME, path:s3path)
-                        s3Upload(bucket:env.FRONTEND_BUCKET_NAME, workingDir:'build/', path:s3path, includePathPattern:'**/*');
+                        s3Delete(bucket:env.FRONTEND_BUCKET_NAME, path:"/")
+                        s3Upload(bucket:env.FRONTEND_BUCKET_NAME, workingDir:'build/', includePathPattern:'**/*');
                 }
                     
                 }
