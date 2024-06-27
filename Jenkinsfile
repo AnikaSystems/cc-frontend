@@ -57,10 +57,10 @@ pipeline {
                     def s3path = "${BRANCH_NAME}/"
                     echo "Pushing files to: ${s3path}"
 
-                    withAWS(region:env.DEPLOY_REGION,credentials:env.PIPELINE_CREDENTIAL_NAME) {
-                        s3Delete(bucket:env.FRONTEND_BUCKET_NAME, path:"/")
-                        s3Upload(bucket:env.FRONTEND_BUCKET_NAME, workingDir:'build/', includePathPattern:'**/*');
-                }
+                    withAWS(region:env.DEPLOY_REGION,credentials:"aws-rapid-jenkins-user") {
+                        s3Delete(bucket:env.FRONTEND_BUCKET_NAME, path:s3path)
+                        s3Upload(bucket:env.FRONTEND_BUCKET_NAME, workingDir:'build/', path:s3path, includePathPattern:'**/*');
+                    }
                     
                 }
                 
