@@ -60,7 +60,7 @@ pipeline {
                     withAWS(region:env.DEPLOY_REGION,credentials:"aws-rapid-jenkins-user") {
                         s3Delete(bucket:env.FRONTEND_BUCKET_NAME, path:s3path)
                         s3Upload(bucket:env.FRONTEND_BUCKET_NAME, workingDir:'build/', path:s3path, includePathPattern:'**/*');
-                }
+                    }
                     
                 }
                 
