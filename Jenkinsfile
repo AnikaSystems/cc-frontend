@@ -38,6 +38,17 @@ pipeline {
             }
         }
 
+        stage('Trivy Secret Scan') {
+            steps {
+                script {
+                    echo "Run Trivy GitHub Repo Scanner"
+                    withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GITHUB_PAT', usernameVariable: 'DUMMY_USER')]) {
+                        sh "docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -e GITHUB_TOKEN=${GITHUB_PAT} aquasec/trivy repo github.com/AnikaSystems/cc-frontend --branch app-test --scanners secret"
+                    }
+                }
+            }
+        }
+
         stage('Selenium test') {
             steps {
                 script {
